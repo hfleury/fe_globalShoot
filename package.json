@@ -1,0 +1,11 @@
+{
+  "name": "globalshoot",
+  "version": "1.0.0",
+  "description": " The front-end of Global Shoot project",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Oni Web Officer",
+  "license": "ISC"
+}
