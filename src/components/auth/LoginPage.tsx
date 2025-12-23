@@ -1,11 +1,11 @@
 // src/auth/LoginPage.tsx
 import {
-    Box,
-    Button,
-    Card,
-    CardContent,
-    TextField,
-    Typography,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  Typography,
 } from "@mui/material";
 import * as React from "react";
 import { useState } from "react";
@@ -41,7 +41,8 @@ export const LoginPage = () => {
           </Typography>
           <form onSubmit={handleSubmit}>
             <TextField
-              label="Username"
+              label="Email"
+              type="email"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               fullWidth
