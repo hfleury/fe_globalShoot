@@ -18,4 +18,4 @@ export const httpClient = (url: string, options: fetchUtils.Options = {}) => {
 };
 
 // TODO: Update this port if the backend runs on a different port
-export const API_URL = 'http://localhost:8080/v1';
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/v1';
