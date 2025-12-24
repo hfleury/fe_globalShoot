@@ -19,9 +19,11 @@ export const authProvider: AuthProvider = {
         throw new Error('Invalid email or password');
       }
 
-      // Backend returns: { success: true, message: "...", data: { token: "..." } }
+      // Backend returns: { success: true, message: "...", data: { token: "...", role: "..." } }
       const token = auth.data.token;
+      const role = auth.data.role;
       tokenService.setToken(token);
+      tokenService.setRole(role);
       localStorage.setItem('username', username);
       return Promise.resolve();
     } catch (error) {
@@ -46,7 +48,10 @@ export const authProvider: AuthProvider = {
     // Check if token exists in our service
     return tokenService.isAuthenticated() ? Promise.resolve() : Promise.reject();
   },
-  getPermissions: () => Promise.resolve(),
+  getPermissions: () => {
+    const role = tokenService.getRole();
+    return role ? Promise.resolve(role) : Promise.reject();
+  },
   getUserIdentity: () => {
     const username = localStorage.getItem('username');
     return Promise.resolve({

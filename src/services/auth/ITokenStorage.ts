@@ -7,4 +7,7 @@ export interface ITokenStorage {
     getToken(): string | null;
     setToken(token: string): void;
     removeToken(): void;
+    getRole(): string | null;
+    setRole(role: string): void;
+    removeRole(): void;
 }

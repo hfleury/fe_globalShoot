@@ -47,6 +47,15 @@ class TokenService {
 
     public removeToken(): void {
         this.storage.removeToken();
+        this.storage.removeRole();
+    }
+
+    public setRole(role: string): void {
+        this.storage.setRole(role);
+    }
+
+    public getRole(): string | null {
+        return this.storage.getRole();
     }
 
     public isAuthenticated(): boolean {

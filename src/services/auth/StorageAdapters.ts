@@ -19,6 +19,18 @@ export class LocalStorageAdapter implements ITokenStorage {
     removeToken(): void {
         localStorage.removeItem(this.key);
     }
+
+    getRole(): string | null {
+        return localStorage.getItem('auth_role');
+    }
+
+    setRole(role: string): void {
+        localStorage.setItem('auth_role', role);
+    }
+
+    removeRole(): void {
+        localStorage.removeItem('auth_role');
+    }
 }
 
 /**
@@ -39,5 +51,18 @@ export class MemoryAdapter implements ITokenStorage {
 
     removeToken(): void {
         this.token = null;
+    }
+
+    private role: string | null = null;
+    getRole(): string | null {
+        return this.role;
+    }
+
+    setRole(role: string): void {
+        this.role = role;
+    }
+
+    removeRole(): void {
+        this.role = null;
     }
 }
