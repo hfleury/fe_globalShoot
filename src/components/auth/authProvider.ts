@@ -13,6 +13,8 @@ export const authProvider: AuthProvider = {
     try {
       const response = await fetch(request);
       const auth = await response.json();
+      console.log('Login response:', auth); // DEBUG
+
       if (response.status < 200 || response.status >= 300) {
         // Provide a generic message for security, or extract from response if needed for debugging
         // The user requested a generic problem message
@@ -22,6 +24,9 @@ export const authProvider: AuthProvider = {
       // Backend returns: { success: true, message: "...", data: { token: "...", role: "..." } }
       const token = auth.data.token;
       const role = auth.data.role;
+      console.log('Extracted token:', token); // DEBUG
+      console.log('Extracted role:', role);   // DEBUG
+
       tokenService.setToken(token);
       tokenService.setRole(role);
       localStorage.setItem('username', username);

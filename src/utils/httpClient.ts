@@ -1,4 +1,4 @@
-import { fetchUtils } from 'react-admin';
+import { fetchUtils, HttpError } from 'react-admin';
 import { tokenService } from '../services/auth/TokenService';
 
 export const httpClient = (url: string, options: fetchUtils.Options = {}) => {
@@ -14,6 +14,25 @@ export const httpClient = (url: string, options: fetchUtils.Options = {}) => {
             response.json = response.json.data;
         }
         return response;
+    }).catch((error) => {
+        if (error.status === 409 && error.body && error.body.errors) {
+            // Map backend errors to React Admin format
+            // Backend format: [{ type: "duplicate_entry", field: "email", message: "...", code: "..." }]
+            // React Admin format: { email: "message", ... }
+            const fieldErrors = error.body.errors.reduce((acc: any, err: any) => {
+                if (err.field) {
+                    acc[err.field] = err.message;
+                }
+                return acc;
+            }, {});
+
+            throw new HttpError(
+                error.body.message || 'Validation error',
+                error.status,
+                fieldErrors
+            );
+        }
+        throw error;
     });
 };
 

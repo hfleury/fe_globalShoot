@@ -18,7 +18,28 @@ const App = () => (
         dashboard={Dashboard}
         layout={AppLayout}
     >
-        <Resource name="companies" list={CompanyList} create={CompanyCreate} edit={CompanyEdit} />
+        {(permissions) => {
+            console.log('App permissions:', permissions);
+            return (
+                <>
+                    {permissions === 'admin' ? (
+                        <Resource
+                            name="companies"
+                            list={CompanyList}
+                            create={CompanyCreate}
+                            edit={CompanyEdit}
+                        />
+                    ) : null}
+                    {permissions === 'company' ? (
+                        <Resource
+                            name="companies"
+                            list={CompanyList}
+                            edit={CompanyEdit}
+                        />
+                    ) : null}
+                </>
+            );
+        }}
     </Admin>
 );
 
