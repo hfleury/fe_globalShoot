@@ -6,12 +6,24 @@ export const httpClient = (url: string, options: fetchUtils.Options = {}) => {
         options.headers = new Headers({ Accept: 'application/json' });
     }
     const token = tokenService.getToken();
+    console.log(`[HttpClient] URL: ${url}, Token available: ${!!token}`);
     if (token) {
-        (options.headers as Headers).set('Authorization', `Bearer ${token}`);
+        if (options.headers instanceof Headers) {
+            options.headers.set('Authorization', `Bearer ${token}`);
+        } else {
+            options.headers = new Headers(options.headers);
+            options.headers.set('Authorization', `Bearer ${token}`);
+        }
+        console.log('[HttpClient] Authorization header set.');
+    } else {
+        console.warn('[HttpClient] No token found in storage.');
     }
     return fetchUtils.fetchJson(url, options).then((response) => {
         if (response.json && response.json.data && response.json.success) {
+            console.log('Unwrapping response:', response.json);
             response.json = response.json.data;
+        } else {
+            console.log('Response format mismatch or failed unwrap condition:', response.json);
         }
         return response;
     }).catch((error) => {
