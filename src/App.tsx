@@ -50,6 +50,7 @@ const App = () => (
                             />
                             <Resource
                                 name="sites"
+                                options={{ label: 'Construction' }}
                                 list={SiteList}
                                 create={SiteCreate}
                                 edit={SiteEdit}
@@ -77,6 +78,7 @@ const App = () => (
                             />
                             <Resource
                                 name="sites"
+                                options={{ label: 'Construction' }}
                                 list={SiteList}
                                 create={SiteCreate}
                                 edit={SiteEdit}
@@ -98,6 +100,7 @@ const App = () => (
                     {permissions === 'customer' ? (
                         <Resource
                             name="sites"
+                            options={{ label: 'Construction' }}
                             list={SiteList}
                         />
                     ) : null}

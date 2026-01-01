@@ -3,6 +3,8 @@ import { Menu } from 'react-admin';
 export const SideMenu = () => (
     <Menu>
         <Menu.DashboardItem />
-        <Menu.ResourceItems />
+        <Menu.ResourceItem name="companies" />
+        <Menu.ResourceItem name="users" />
+        <Menu.ResourceItem name="sites" />
     </Menu>
 );
